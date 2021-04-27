@@ -53,9 +53,16 @@ $f3->route('GET|POST /order1', function(){
     echo $view->render('views/orderForm1.html');
 });
 
-$f3->route('GET /order2', function(){
+$f3->route('GET|POST /order2', function(){
 
-    //Display the second order form
+    //If the form has been submitted add the data to session
+    // and send the user to the summary page
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $_SESSION['conds'] = implode(", ", $_POST['conds']);
+        header('location: summary');
+    }
+
+    //display the second order form
     $view = new Template();
     echo $view->render('views/orderForm2.html');
 });
