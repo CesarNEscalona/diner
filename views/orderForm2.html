@@ -12,7 +12,10 @@
                 <repeat group="{{ @condiments }}" value="{{ @condiment }}">
                     <label><input type="checkbox"
                                   name="conds[]"
-                                  value="{{ @condiment }}"> {{ ucfirst(@condiment) }}</label><br>
+                                  value="{{ @condiment }}"
+                                  <check if="{{ in_array(@condiment, @userConds) }}">checked="checked"
+                                  </check>
+                    > {{ ucFirst(@condiment) }}</label><br>
                 </repeat>
             </div>
             <check if="{{ isset(@errors['conds']) }}">
