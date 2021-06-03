@@ -15,7 +15,7 @@ $f3 = Base::instance();
 $con = new Controller($f3);
 $dataLayer = new DataLayer();
 //$dataLayer->saveOrder(new Order('taco', 'lunch', 'salsa'));
-//$result = $dataLayer->getOrders();
+//$result = $dataLayer->getMeals();
 //var_dump($result);
 
 //Define default route

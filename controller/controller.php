@@ -30,7 +30,7 @@ class Controller
 
         //Initialize variables to store user input
         $userFood = "";
-        $userMeal = "";
+        $mealId = 0;
 
         //If the form has been submitted, add the data to session
         //and send the user to the next order form
@@ -38,7 +38,7 @@ class Controller
             //var_dump($_POST);
 
             $userFood = $_POST['food'];
-            $userMeal = $_POST['meal'];
+            $mealId = $_POST['meal'];
 
             //If food is valid, store data
             if(Validation::validFood($userFood)) {
@@ -50,8 +50,8 @@ class Controller
             }
 
             //If meal is valid, store data
-            if(!empty($userMeal) && Validation::validMeal($userMeal)) {
-                $_SESSION['order']->setMeal($userMeal);
+            if(!empty($mealId) && Validation::validMeal($mealId)) {
+                $_SESSION['order']->setMeal($mealId);
             }
             //Otherwise, set an error variable in the hive
             else {
@@ -64,12 +64,13 @@ class Controller
             }
         }
 
-        //Get the data from the model
-        $this->_f3->set('meals', DataLayer::getMeals());
+        //Get the data from the model, Non statically
+        $meals = $GLOBALS['dataLayer']->getMeals();
+        $this->_f3->set('meals', $meals);
 
-        //Store the user input in the hive
+        //Store the user input in the hive (Sticky Part)
         $this->_f3->set('userFood', $userFood);
-        $this->_f3->set('userMeal', $userMeal);
+        $this->_f3->set('userMeal', $mealId);
 
         //Display the first order form
         $view = new Template();
@@ -141,6 +142,7 @@ class Controller
         //Get the data from the model
         $orders = $GLOBALS['dataLayer']->getOrders();
         $this->_f3->set('orders', $orders);
+        //echo var_dump($orders);
 
         //Display the admin page
         $view = new Template();

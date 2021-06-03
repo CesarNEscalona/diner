@@ -14,9 +14,10 @@ class Validation
     }
 
     //Return true if meal is valid
-    static function validMeal($meal)
+    static function validMeal($mealId)
     {
-        return in_array($meal, DataLayer::getMeals());
+        $meals = $GLOBALS['dataLayer']->getMeals();
+        return array_key_exists($mealId, $meals);
     }
 
     //Return true if *all* condiments are valid
